@@ -1,0 +1,43 @@
+---
+title: "Take Home 1"
+header-includes: 
+    - \usepackage{graphicx,transparent,xcolor,slashbox,amsmath,amssymb}
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This take home assignment is due on Mon Jan 17 by **midnight** PST.
+
+\textbf{Instructions}: Follow each one diligently. \textbf{No exceptions.}
+\hrule
+\begin{enumerate}
+	\item Please type your answers and upload as a PDF. If you prefer to write your answers, we will accept handwritten work provided it is legible. If you decide to go this route, be sure to [scan](https://www.camscanner.com) and upload a single file.  
+	\item Write your full name (as it appears in the grade book) on the first page, preferably as a running header on each page.
+	\item Answer the questions in order and number them as I have here. Write complete answers which includes justifications for steps and/or references to results you use. This is really important.
+	\item Clearly indicate your final answer. Put a frame around it where appropriate.
+\end{enumerate}
+\hrule
+
+1. Pruim problem 3.17 on page 216.   The time $X$ (in seconds) between two randomly selected consecutive cars in a traffic flow model is modeled with PDF 
+$$f(x) = \frac{k}{x^4}, \ \  \ \ a \leq x < \infty$$
+   a. Determine the value of $k$ in terms of $a$.
+   b. Obtain the CDF of $X$.
+   c. If $a=1$ what is $P(2 \leq X \leq 3)$.
+   d. What is $E\left[X\right]$ and what does it tell you about traffic in this model?
+   e. What is the standard deviation of $X$?
+ 
+2. Suppose $X \sim Unif(0,1)$. Find $E\left[ -\ln(X) \right]$ using the law of the unconscious probabilist.
+
+3. The diameters of ball bearings from a particular company are normally distributed. In order to quickly determine the parameters of the normal distribution, one determines the proportion of bearings going through sieves with circular holes of different sizes. If 23% of the bearings go through a hole of diameter 4.9 mm and 59% go through a hole of diameter 5.0 mm, what are the mean and standard deviation of the diameters of the entire population? Assume the ball bearings are spherical. 
+
+   Be sure to practice writing clearly. This means define the random variable and clearly state what you are calculating before you launch into it. 
+   
+   
+4. The time between repairs of a device can be reasonably modeled with an exponential distribution if we believe that the events that cause the device to fail occur according to the Poisson model. The  following are the repair intervals (measured in hours of service time between repairs). 
+
+49.0, 60.4, 8.9, 43.4, 34.8, 8.2, 3.6, 11.5, 99.4, 31.9
+
+   **Fit** an exponential distribution and a gamma distribution on the same graph and compare the results just visually.   (You will need to find the parameter values of the distributions by matching the theoretical mean and/or variance with their sample counterparts.)
