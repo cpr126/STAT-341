@@ -7,6 +7,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+library(fastR2)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -24,7 +25,7 @@ This take home assignment is due on Mon Jan 17 by **midnight** PST.
 \end{enumerate}
 \hrule
 ```
-1.  Pruim problem 3.17 on page 216. The time $X$ (in seconds) between two randomly selected consecutive cars in a traffic flow model is modeled with PDF $$f(x) = \frac{k}{x^4}, \ \  \ \ a \leq x < \infty$$
+1.  Pruim problem 3.17 on page 216. The time $X$ (in seconds) between two randomly selected consecutive cars in a traffic flow model is modeled with PDF $f(x) = \frac{k}{x^4}, \ \  \ \ a \leq x < \infty$
 
     a.  Determine the value of $k$ in terms of $a$.
 
@@ -47,24 +48,130 @@ This take home assignment is due on Mon Jan 17 by **midnight** PST.
         $$
         \begin{aligned}
         F(X) &= \int_{-\infty}^{x} f(t) dt \\
-        \text{for x < a: }& F(X) = \int_{-\infty}^{x} 0 dt = 0\\
+        \text{for x < a: } F(X) &= \int_{-\infty}^{x} 0 \;dt = 0\\
+        \text{for a $\leqslant$ x < $\infty$: } F(X) &= \int_{a}^{x} \frac{3a^3}{t^4} \;dt = 1 - \frac{a^3}{x^3}\\
         \end{aligned}
         $$
 
+        Thus,we can conclude that 
+        $$
+        F(X) = 
+        \begin{cases}
+        0, \;\;\;\;\;\;\;\;\;\;\;\;\text{for x < a}\\
+        1-\frac{a^3}{x^3},\;\;\;\;\text{for a $\leqslant$ x < $\infty$}\\
+        1, \;\;\;\;\;\;\;\;\;\;\;\;\text{Otherwise}
+        \end{cases}
+        $$
     c.  If $a=1$ what is $P(2 \leq X \leq 3)$.
+        
+        If we have $a = 1$, then $f_X(x) = \frac{3}{x^4}$ if $1 \leq x < \infty$.
+        And 
+        $$
+        \begin{align*}
+        P(2 \leqslant X \leqslant 3) &= \int_2^3 \frac{3}{x^4}\; dx\\
+        &= \frac{19}{216}\\
+        \end{align*}
+        $$
 
     d.  What is $E\left[X\right]$ and what does it tell you about traffic in this model?
-
+    $$
+    \begin{align*}
+    E[X] &= \int_a^\infty x \cdot \frac{3a^3}{x^4}\; dx \\
+    &= 3a^3\int_a^\infty \frac{1}{x^3} \; dx \\
+    &=  3a^3 \cdot \frac{1}{2a^2}\\
+    &= \frac{3a}{2}\\
+    \end{align*}
+    $$
+    E[X] is the mean of the given distribution. And it tells us the expected time in between two consecutive cars in a traffic is $\frac{3a}{2}$.
     e.  What is the standard deviation of $X$?
+    Since we know that $\sigma = \sqrt{E[X^2]-E[X]^2}$. We can calculate $E[X^2]$ first,
+    $$
+    \begin{align*}
+    E[X^2] &= \int_a^\infty x^2 \cdot \frac{3a^3}{x^4}\; dx\\
+    &= 3a^3\int_a^\infty \frac{1}{x^2} \; dx\\
+    &= 3a^3 \cdot \frac1a\\
+    &= 3a^2\\
+    \\
+    \\
+    &\text{Then, we can easily get}\\
+    \sigma &= \sqrt{E[X^2]-E[X]^2}\\
+    &= \sqrt{3a^2-\big(\frac{3a}{2}\big)^2}\\
+    &= \frac{\sqrt{3}a}{2}\\
+    \end{align*}
+    $$
+    
 
 2.  Suppose $X \sim Unif(0,1)$. Find $E\left[ -\ln(X) \right]$ using the law of the unconscious probability.
+
+Since we are given that $X \sim Unif(0,1)$. We can say that $f_X(x) = 1$ for $0 \leqslant x \leqslant 1$ and 0 otherwise.
+
+Then, by the law of unconscious probability, we have 
+$$
+\begin{align*}
+\int_{-\infty}^\infty -\ln{x} f_X(x) \;dx &= \int_0^1-\ln{x} \cdot 1 \; dx\\
+&= 1 \\
+\end{align*}
+$$
 
 3.  The diameters of ball bearings from a particular company are normally distributed. In order to quickly determine the parameters of the normal distribution, one determines the proportion of bearings going through sieves with circular holes of different sizes. If 23% of the bearings go through a hole of diameter 4.9 mm and 59% go through a hole of diameter 5.0 mm, what are the mean and standard deviation of the diameters of the entire population? Assume the ball bearings are spherical.
 
     Be sure to practice writing clearly. This means define the random variable and clearly state what you are calculating before you launch into it.
+    
+  Suppose we have a random variable $X$ that represents the diamension of the ball bearings. Then, according to the question, we will have the following:
+  $$
+  \begin{align*}
+  P(X \leqslant 4.9) &= 0.23\\
+  P(X \leqslant 5.0) &= 0.59\\
+  \end{align*}
+  $$
+Since $X ~N(\mu, \sigma^2)$/ We can standardize above equations to:
+$$
+  \begin{align*}
+  P(Z\leqslant \frac{4.9 - \mu}{\sigma}) &= 0.23\\
+  P(Z \leqslant \frac{5.0 - \mu}{\sigma}) &= 0.59\\
+  \end{align*}
+$$
+Then, we can use
+```{r, eval = TRUE}
+result_1 <- qnorm(0.23, mean = 0, sd = 1)
+result_2 <- qnorm(0.59, mean = 0, sd = 1)
+```
+to solve for $\mu$ and $\sigma$. 
+
+$$
+\begin{cases}
+\frac{4.9 - \mu}{\sigma} &= `r result_1`\\
+\frac{5.0 - \mu}{\sigma} &= `r result_2`\\
+\end{cases}
+$$
+Solve the above equations and we get $\mu = 4.977$ and $\sigma = 0.103$.
 
 4.  The time between repairs of a device can be reasonably modeled with an exponential distribution if we believe that the events that cause the device to fail occur according to the Poisson model. The following are the repair intervals (measured in hours of service time between repairs).
 
-49.0, 60.4, 8.9, 43.4, 34.8, 8.2, 3.6, 11.5, 99.4, 31.9
 
 **Fit** an exponential distribution and a gamma distribution on the same graph and compare the results just visually. (You will need to find the parameter values of the distributions by matching the theoretical mean and/or variance with their sample counterparts.)
+
+
+```{r, eval = TRUE}
+# convert data into a dataframe
+time <- data.frame(x = c(49.0, 60.4, 8.9, 43.4, 34.8, 8.2, 3.6, 11.5, 99.4, 31.9))
+
+#calculate the mean and variance 
+mean <- mean(time$x) #35.11
+var <- var(time$x) # 889.5854
+
+# Calculate parameters needed for graphing respective fitting
+lambda_exp <- 1/mean # 0.2848
+lambda_gamma <- mean/var # 0.0395
+alpha_gamma <- lambda_gamma*mean #1.3857
+
+# This will plot the histogram of time with a gamma fitting
+time %>% gf_dhistogram(~x, breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100)) %>%
+  gf_dist("gamma", shape = alpha_gamma, rate = lambda_gamma, color = "red", xlim = c(0,100))
+
+# This will plot the histogram of time with a exponential fitting
+time %>% gf_dhistogram(~x, breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100)) %>%
+  gf_dist("exp", lambda_gamma, color = "blue", xlim = c(0, 100))
+```
+
+If we compare the resulting graphs, I would say both are good fit.
