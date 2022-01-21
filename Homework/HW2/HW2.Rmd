@@ -1,0 +1,30 @@
+---
+title: "Take Home 2"
+header-includes: \usepackage{graphicx,transparent,xcolor,slashbox,amsmath,amssymb}
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+library(fastR2)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This take home assignment is due on Mon Jan 17 by **midnight** PST.
+
+\textbf{Instructions}: Follow each one diligently. \textbf{No exceptions.}
+
+```{=tex}
+\hrule
+\begin{enumerate}
+    \item Please type your answers and upload as a PDF. If you prefer to write your answers, we will accept handwritten work provided it is legible. If you decide to go this route, be sure to [scan](https://www.camscanner.com) and upload a single file.  
+    \item Write your full name (as it appears in the grade book) on the first page, preferably as a running header on each page.
+    \item Answer the questions in order and number them as I have here. Write complete answers which includes justifications for steps and/or references to results you use. This is really important.
+    \item Clearly indicate your final answer. Put a frame around it where appropriate.
+\end{enumerate}
+\hrule
+```
+
+
+1. 
